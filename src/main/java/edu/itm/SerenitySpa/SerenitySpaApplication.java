@@ -9,5 +9,4 @@ public class SerenitySpaApplication
 	public static void main(String[] args) {
 		SpringApplication.run(SerenitySpaApplication.class, args);
 	}
-
 }
