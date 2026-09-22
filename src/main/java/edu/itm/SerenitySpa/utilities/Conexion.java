@@ -1,4 +1,4 @@
-package utilities;
+package edu.itm.SerenitySpa.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,61 +1,20 @@
 package edu.itm.SerenitySpa.identities;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente
 {
     private int    idCliente;
     private String nombre;
+    private String apellido;
     private String correo;
     private String telefono;
-
-    //Cons vacio
-    public Cliente()
-    {    }
-
-    //Cons completo
-    public Cliente(int idCliente, String nombre, String correo, String telefono)
-    {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.telefono = telefono;
-    }
-
-    //get-set
-
-    public int getIdCliente()
-    {
-        return idCliente;
-    }
-    public void setIdCliente(int idCliente)
-    {
-        this.idCliente = idCliente;
-    }
-
-    public String getNombre()
-    {
-        return nombre;
-    }
-    public void setNombre(String nombre)
-    {
-        this.nombre = nombre;
-    }
-
-    public String getCorreo()
-    {
-        return correo;
-    }
-    public void setCorreo(String correo)
-    {
-        this.correo = correo;
-    }
-
-    public String getTelefono()
-    {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono)
-    {
-        this.telefono = telefono;
-    }
 }
