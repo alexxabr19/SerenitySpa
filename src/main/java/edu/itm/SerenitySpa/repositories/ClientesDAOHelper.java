@@ -1,6 +1,8 @@
 package edu.itm.SerenitySpa.repositories;
 
 
+import edu.itm.SerenitySpa.identities.Cliente;
+import edu.itm.SerenitySpa.utilities.Conexion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
