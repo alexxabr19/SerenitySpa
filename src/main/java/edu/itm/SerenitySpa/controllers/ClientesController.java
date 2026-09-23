@@ -1,7 +1,11 @@
 package edu.itm.SerenitySpa.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import edu.itm.SerenitySpa.identities.Cliente;
-import edu.itm.SerenitySpa.services.ClientesService;
+import edu.itm.SerenitySpa.services.ClientesServices;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,47 +14,28 @@ import java.util.List;
 @RequestMapping("/api/clientes")
 public class ClientesController {
 
-    private ClientesService clientesService = new ClientesService();
+    @Autowired
+    private ClientesServices clientesServices;
 
     @GetMapping
-    public List<Cliente> listarClientes() {
-
-        return clientesService.listarClientes();
+    public List<Cliente> listar()
+    {
+        return clientesServices.listarClientes();
     }
-
-    @GetMapping("/{idCliente}")
-    public Cliente buscarCliente(@PathVariable int idCliente) {
-
-        return clientesService.buscarCliente(idCliente);
-    }
-
-    @PostMapping
-    public String insertarCliente(@RequestBody Cliente cliente) {
-
-        if (clientesService.insertarCliente(cliente)) {
-            return "Cliente registrado correctamente";
-        }
-
-        return "No se pudo registrar el cliente";
-    }
-
     @PutMapping
-    public String actualizarCliente(@RequestBody Cliente cliente) {
-
-        if (clientesService.actualizarCliente(cliente)) {
-            return "Cliente actualizado correctamente";
-        }
-
-        return "No se pudo actualizar el cliente";
+    public String actualizar(@RequestBody Cliente cliente) {
+        boolean exito = clientesServices.actualizarCliente(cliente);
+        return exito ? "Cliente actualizado exitosamente" : "Error al actualizar";
     }
 
-    @DeleteMapping("/{idCliente}")
-    public String eliminarCliente(@PathVariable int idCliente) {
-
-        if (clientesService.eliminarCliente(idCliente)) {
-            return "Cliente eliminado correctamente";
-        }
-
-        return "No se pudo eliminar el cliente";
+    @DeleteMapping("/{id}")
+    public String eliminar(@PathVariable int id) {
+        boolean exito = clientesServices.eliminarCliente(id);
+        return exito ? "Cliente eliminado exitosamente" : "Error al eliminar";
+    }
+    @PostMapping
+    public String guardar(@RequestBody Cliente cliente) {
+        boolean exito = clientesServices.insertarCliente(cliente);
+        return exito ? "Cliente guardado exitosamente" : "Error al guardar cliente";
     }
 }
