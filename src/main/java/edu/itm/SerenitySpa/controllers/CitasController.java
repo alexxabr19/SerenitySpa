@@ -32,9 +32,7 @@ public class CitasController {
     }
 
     @PutMapping("/{id}")
-    public Cita actualizar(
-            @PathVariable int id,
-            @RequestBody Cita cita) {
+    public Cita actualizar(@PathVariable int id,@RequestBody Cita cita) {
 
         return citaService.actualizar(id, cita);
     }

@@ -10,8 +10,10 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Cliente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCliente")
     private int idCliente;
     private String nombre;
     private String apellido;

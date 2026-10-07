@@ -11,6 +11,7 @@ import lombok.*;
 public class Sede {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idSede")
     private int idSede;
     private String nombre;
     private String direccion;

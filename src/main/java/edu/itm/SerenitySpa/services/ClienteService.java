@@ -7,32 +7,39 @@ import java.util.List;
 
 @Service
 public class ClienteService implements IClienteService {
+
     private final IClienteRepository clienteRepository;
+
     public ClienteService(IClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
+
     @Override
     public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
     }
+
     @Override
     public Cliente buscarCliente(int id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + id));
     }
+
     @Override
     public Cliente guardarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
+
     @Override
     public Cliente actualizarCliente(int id, Cliente cliente) {
-        Cliente clienteExistente = buscarCliente(id);
-        clienteExistente.setNombre(cliente.getNombre());
-        clienteExistente.setApellido(cliente.getApellido());
-        clienteExistente.setCorreo(cliente.getCorreo());
-        clienteExistente.setTelefono(cliente.getTelefono());
-        return clienteRepository.save(clienteExistente);
+        Cliente existente = buscarCliente(id);
+        existente.setNombre(cliente.getNombre());
+        existente.setApellido(cliente.getApellido());
+        existente.setCorreo(cliente.getCorreo());
+        existente.setTelefono(cliente.getTelefono());
+        return clienteRepository.save(existente);
     }
+
     @Override
     public void eliminarCliente(int id) {
         Cliente cliente = buscarCliente(id);

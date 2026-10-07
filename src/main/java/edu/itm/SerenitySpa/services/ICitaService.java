@@ -1,7 +1,6 @@
 package edu.itm.SerenitySpa.services;
 
 import edu.itm.SerenitySpa.identities.Cita;
-
 import java.util.List;
 
 public interface ICitaService {
