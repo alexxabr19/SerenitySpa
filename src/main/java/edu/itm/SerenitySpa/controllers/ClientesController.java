@@ -1,41 +1,37 @@
 package edu.itm.SerenitySpa.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import edu.itm.SerenitySpa.identities.Cliente;
-import edu.itm.SerenitySpa.services.ClientesServices;
+import edu.itm.SerenitySpa.services.IClienteService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClientesController {
-
-    @Autowired
-    private ClientesServices clientesServices;
-
+    private final IClienteService clienteService;
+    public ClientesController(IClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
     @GetMapping
-    public List<Cliente> listar()
-    {
-        return clientesServices.listarClientes();
+    public List<Cliente> listar() {
+        return clienteService.listarClientes();
     }
-    @PutMapping
-    public String actualizar(@RequestBody Cliente cliente) {
-        boolean exito = clientesServices.actualizarCliente(cliente);
-        return exito ? "Cliente actualizado exitosamente" : "Error al actualizar";
-    }
-
-    @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable int id) {
-        boolean exito = clientesServices.eliminarCliente(id);
-        return exito ? "Cliente eliminado exitosamente" : "Error al eliminar";
+    @GetMapping("/{id}")
+    public Cliente buscar(@PathVariable int id) {
+        return clienteService.buscarCliente(id);
     }
     @PostMapping
-    public String guardar(@RequestBody Cliente cliente) {
-        boolean exito = clientesServices.insertarCliente(cliente);
-        return exito ? "Cliente guardado exitosamente" : "Error al guardar cliente";
+    public Cliente guardar(@RequestBody Cliente cliente) {
+        return clienteService.guardarCliente(cliente);
+    }
+    @PutMapping("/{id}")
+    public Cliente actualizar(
+            @PathVariable int id,
+            @RequestBody Cliente cliente) {
+        return clienteService.actualizarCliente(id, cliente);
+    }
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable int id) {
+        clienteService.eliminarCliente(id);
     }
 }

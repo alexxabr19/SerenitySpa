@@ -1,18 +1,18 @@
 package edu.itm.SerenitySpa.identities;
 
+import jakarta.persistence.*;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+@Entity
+@Table(name = "cliente")
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Cliente
-{
-    private int    idCliente;
+@AllArgsConstructor
+@Builder
+public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idCliente;
     private String nombre;
     private String apellido;
     private String correo;
