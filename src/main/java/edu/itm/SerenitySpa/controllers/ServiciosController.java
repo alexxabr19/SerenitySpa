@@ -1,6 +1,6 @@
 package edu.itm.SerenitySpa.controllers;
 
-import edu.itm.SerenitySpa.exceptions.ServicioEnUsoException;
+
 import edu.itm.SerenitySpa.identities.Servicio;
 import edu.itm.SerenitySpa.services.IServicioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -98,20 +98,9 @@ public class ServiciosController {
     @Operation(summary = "Elimina un servicio", description = "Responde 204, 404 si no existe o 409 si está asociado a citas o empleados")
     public ResponseEntity<Void> eliminar(@PathVariable("id") int id) {
 
-        try {
-            if (servicioService.eliminar(id)) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
+        servicioService.eliminar(id);
 
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        } catch (ServicioEnUsoException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // Regla de negocio: nombre obligatorio, duración mayor a 0 y precio mayor a 0

@@ -3,7 +3,7 @@ package edu.itm.SerenitySpa.controllers;
 import edu.itm.SerenitySpa.identities.Cita;
 import edu.itm.SerenitySpa.services.ICitaService;
 import org.springframework.web.bind.annotation.*;
-
+import edu.itm.SerenitySpa.dto.CitaRequest;
 import java.util.List;
 
 @RestController
@@ -27,13 +27,12 @@ public class CitasController {
     }
 
     @PostMapping
-    public Cita agendar(@RequestBody Cita cita) {
+    public Cita agendar(@RequestBody CitaRequest cita) {
         return citaService.agendar(cita);
     }
 
     @PutMapping("/{id}")
-    public Cita actualizar(@PathVariable int id,@RequestBody Cita cita) {
-
+    public Cita actualizar(@PathVariable int id, @RequestBody CitaRequest cita) {
         return citaService.actualizar(id, cita);
     }
 
