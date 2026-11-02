@@ -31,12 +31,12 @@ public class ClienteDAO implements IClienteDAO {
     public List<Cliente> listar() {
         List<Cliente> clientes = new ArrayList<>();
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.preparedStatement (ClientesDAOHelper.LISTAR);
+             PreparedStatement ps = cn.prepareStatement (ClientesDAOHelper.LISTAR);
              ResultSet rs = ps.executeQuery()){
             while(rs.next()) clientes.add(mapear(rs));
             return clientes;
         } catch(SQLException e) {
-            throw new AcessoDatosException("No fue posible listar a los clientes.", e);
+            throw new AccesoDatosException("No fue posible listar a los clientes.", e);
         }
     }
 
@@ -46,10 +46,10 @@ public class ClienteDAO implements IClienteDAO {
         PreparedStatement ps = cn.prepareStatement(ClientesDAOHelper.BUSCAR_POR_ID)){
             ps.setInt(1,id);
             try(ResultSet rs = ps.executeQuery()){
-                return rs.next() ? Optional.of(mapear(rs)) : optional.empty();
+                return rs.next() ? Optional.of(mapear(rs)) : Optional.empty();
             }
         }catch (SQLException e) {
-            throw new AccesoDatosException("No fue posible consultar el cliente.", e)
+            throw new AccesoDatosException("No fue posible consultar el cliente.", e);
         }
     }
 
