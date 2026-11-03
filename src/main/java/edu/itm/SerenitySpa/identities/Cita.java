@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "cita")
@@ -42,4 +43,7 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "idSede")
     private Sede sede;
+
+    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Factura factura;
 }

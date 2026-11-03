@@ -2,7 +2,8 @@ package edu.itm.SerenitySpa.identities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 @Entity
 @Table(name = "cliente")
 @Data
@@ -19,5 +20,12 @@ public class Cliente {
     private String apellido;
     private String correo;
     private String telefono;
+
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    private List<Cita> citas;
+
+
+
 }
 
