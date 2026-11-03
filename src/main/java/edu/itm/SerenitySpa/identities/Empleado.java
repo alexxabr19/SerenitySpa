@@ -3,6 +3,7 @@ package edu.itm.SerenitySpa.identities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "empleado")
 @Data
@@ -24,8 +25,13 @@ public class Empleado {
             name = "empleado_servicio",
             joinColumns = @JoinColumn(name = "idEmpleado"),
             inverseJoinColumns = @JoinColumn(name = "idServicio")
+
+
     )
     private List<Servicio> serviciosHabilitados;
+    @OneToMany(mappedBy = "empleado")
+    @JsonIgnore
+    private List<Cita> citas;
 
 }
 
