@@ -1,17 +1,19 @@
 package edu.itm.SerenitySpa.controllers;
 
-
 import edu.itm.SerenitySpa.identities.Servicio;
 import edu.itm.SerenitySpa.services.IServicioService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+@Tag(name = "Servicios", description = "Operaciones para administrar la oferta de servicios del spa")
 @RestController
 @RequestMapping("/api/servicios")
 @Tag(name = "Servicios")
@@ -20,8 +22,12 @@ public class ServiciosController {
     @Autowired
     private IServicioService servicioService;
 
+    @Operation(summary = "Listar servicios", description = "Retorna todos los servicios registrados.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Servicios consultados correctamente"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping
-    @Operation(summary = "Lista los servicios", description = "Responde 200 con la lista de servicios")
     public ResponseEntity<List<Servicio>> listar() {
         try {
             return new ResponseEntity<>(servicioService.listar(), HttpStatus.OK);
@@ -31,8 +37,12 @@ public class ServiciosController {
         }
     }
 
+    @Operation(summary = "Buscar servicio por ID", description = "Retorna la información de un servicio específico.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Servicio encontrado"),
+            @ApiResponse(responseCode = "404", description = "Servicio no encontrado")
+    })
     @GetMapping("/{id}")
-    @Operation(summary = "Consulta un servicio por id", description = "Responde 200, o 404 si no existe")
     public ResponseEntity<Servicio> buscar(@PathVariable("id") int id) {
         try {
             Servicio servicio = servicioService.buscar(id);
@@ -49,8 +59,12 @@ public class ServiciosController {
         }
     }
 
+    @Operation(summary = "Guardar servicio", description = "Registra un nuevo servicio.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Servicio creado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
     @PostMapping
-    @Operation(summary = "Crea un servicio", description = "Responde 201, o 400 si los datos son incorrectos")
     public ResponseEntity<Servicio> guardar(@RequestBody Servicio servicio) {
 
         if (!datosValidos(servicio)) {
@@ -69,8 +83,12 @@ public class ServiciosController {
         }
     }
 
+    @Operation(summary = "Actualizar servicio", description = "Actualiza los datos de un servicio.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Servicio actualizado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Servicio no encontrado")
+    })
     @PutMapping("/{id}")
-    @Operation(summary = "Actualiza un servicio", description = "Responde 200, 400 si los datos son incorrectos o 404 si no existe")
     public ResponseEntity<Servicio> actualizar(
             @PathVariable("id") int id,
             @RequestBody Servicio servicio) {
@@ -94,8 +112,13 @@ public class ServiciosController {
         }
     }
 
+    @Operation(summary = "Eliminar servicio", description = "Elimina un servicio validando que no esté en uso.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Servicio eliminado exitosamente"),
+            @ApiResponse(responseCode = "409", description = "Conflicto: El servicio está en uso"),
+            @ApiResponse(responseCode = "404", description = "Servicio no encontrado")
+    })
     @DeleteMapping("/{id}")
-    @Operation(summary = "Elimina un servicio", description = "Responde 204, 404 si no existe o 409 si está asociado a citas o empleados")
     public ResponseEntity<Void> eliminar(@PathVariable("id") int id) {
 
         servicioService.eliminar(id);
@@ -103,7 +126,6 @@ public class ServiciosController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Regla de negocio: nombre obligatorio, duración mayor a 0 y precio mayor a 0
     private boolean datosValidos(Servicio servicio) {
         return servicio.getNombre() != null
                 && !servicio.getNombre().isBlank()
