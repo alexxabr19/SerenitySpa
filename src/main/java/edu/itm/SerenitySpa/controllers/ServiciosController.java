@@ -44,19 +44,8 @@ public class ServiciosController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Servicio> buscar(@PathVariable("id") int id) {
-        try {
             Servicio servicio = servicioService.buscar(id);
-
-            if (servicio == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
             return new ResponseEntity<>(servicio, HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @Operation(summary = "Guardar servicio", description = "Registra un nuevo servicio.")
