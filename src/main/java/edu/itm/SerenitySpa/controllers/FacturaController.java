@@ -46,7 +46,8 @@ public class FacturaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Factura creada correctamente"),
             @ApiResponse(responseCode = "404", description = "Cita no encontrada"),
-            @ApiResponse(responseCode = "409", description = "Regla de negocio incumplida")
+            @ApiResponse(responseCode = "409", description = "Regla de negocio incumplida"),
+            @ApiResponse(responseCode = "400", description = "Datos de petición inválidos")
     })
     @PostMapping
     public Factura crear(@RequestBody FacturaRequest factura) {
@@ -57,7 +58,8 @@ public class FacturaController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Factura actualizada correctamente"),
             @ApiResponse(responseCode = "404", description = "Factura o cita no encontrada"),
-            @ApiResponse(responseCode = "409", description = "Regla de negocio incumplida")
+            @ApiResponse(responseCode = "409", description = "Regla de negocio incumplida"),
+            @ApiResponse(responseCode = "400", description = "Datos de petición inválidos")
     })
     @PutMapping("/{id}")
     public Factura actualizar(

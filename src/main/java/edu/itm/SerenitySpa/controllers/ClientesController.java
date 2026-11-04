@@ -1,3 +1,4 @@
+
 package edu.itm.SerenitySpa.controllers;
 
 import edu.itm.SerenitySpa.identities.Cliente;
@@ -21,7 +22,7 @@ public class ClientesController {
         this.clienteService = clienteService;
     }
 
-    @Operation(summary = "Listar clientes", description = "Retorna una lista con todos los clientes registrados.")
+    @Operation(summary = "Listar clientes")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Clientes consultados exitosamente"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
@@ -31,7 +32,7 @@ public class ClientesController {
         return clienteService.listarClientes();
     }
 
-    @Operation(summary = "Buscar cliente por ID", description = "Retorna la información de un cliente específico según su ID.")
+    @Operation(summary = "Buscar cliente por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cliente encontrado"),
             @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
@@ -42,9 +43,9 @@ public class ClientesController {
         return clienteService.buscarCliente(id);
     }
 
-    @Operation(summary = "Guardar cliente", description = "Registra un nuevo cliente en el sistema.")
+    @Operation(summary = "Guardar cliente")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Cliente creado exitosamente"),
+            @ApiResponse(responseCode = "200", description = "Cliente creado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Datos de petición inválidos"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
@@ -53,9 +54,10 @@ public class ClientesController {
         return clienteService.guardarCliente(cliente);
     }
 
-    @Operation(summary = "Actualizar cliente", description = "Modifica la información de un cliente existente.")
+    @Operation(summary = "Actualizar cliente")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cliente actualizado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Datos de petición inválidos"),
             @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
@@ -64,7 +66,7 @@ public class ClientesController {
         return clienteService.actualizarCliente(id, cliente);
     }
 
-    @Operation(summary = "Eliminar cliente", description = "Elimina un cliente del sistema por su ID.")
+    @Operation(summary = "Eliminar cliente")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cliente eliminado exitosamente"),
             @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),

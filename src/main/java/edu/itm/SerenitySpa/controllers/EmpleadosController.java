@@ -1,3 +1,4 @@
+
 package edu.itm.SerenitySpa.controllers;
 
 import edu.itm.SerenitySpa.identities.Empleado;
@@ -14,13 +15,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequestMapping("/api/empleados")
 public class EmpleadosController {
+
     private final IEmpleadoService empleadoService;
 
     public EmpleadosController(IEmpleadoService empleadoService) {
         this.empleadoService = empleadoService;
     }
 
-    @Operation(summary = "Listar empleados", description = "Retorna todos los empleados registrados.")
+    @Operation(summary = "Listar empleados")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Empleados consultados correctamente"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
@@ -30,7 +32,7 @@ public class EmpleadosController {
         return empleadoService.listar();
     }
 
-    @Operation(summary = "Buscar empleado por ID", description = "Retorna los datos de un empleado específico.")
+    @Operation(summary = "Buscar empleado por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Empleado encontrado"),
             @ApiResponse(responseCode = "404", description = "Empleado no encontrado")
@@ -40,27 +42,29 @@ public class EmpleadosController {
         return empleadoService.buscar(id);
     }
 
-    @Operation(summary = "Guardar empleado", description = "Registra un nuevo empleado.")
+    @Operation(summary = "Guardar empleado")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Empleado creado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos")
+            @ApiResponse(responseCode = "200", description = "Empleado creado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
+            @ApiResponse(responseCode = "404", description = "Servicio no encontrado")
     })
     @PostMapping
     public Empleado guardar(@RequestBody Empleado empleado) {
         return empleadoService.guardar(empleado);
     }
 
-    @Operation(summary = "Actualizar empleado", description = "Actualiza la información de un empleado.")
+    @Operation(summary = "Actualizar empleado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Empleado actualizado exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Empleado no encontrado")
+            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
+            @ApiResponse(responseCode = "404", description = "Empleado o servicio no encontrado")
     })
     @PutMapping("/{id}")
     public Empleado actualizar(@PathVariable int id, @RequestBody Empleado empleado) {
         return empleadoService.actualizar(id, empleado);
     }
 
-    @Operation(summary = "Eliminar empleado", description = "Elimina un empleado por su ID.")
+    @Operation(summary = "Eliminar empleado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Empleado eliminado exitosamente"),
             @ApiResponse(responseCode = "404", description = "Empleado no encontrado")
@@ -68,8 +72,8 @@ public class EmpleadosController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable int id) {
         empleadoService.eliminar(id);
-
     }
-
-
 }
+
+
+
