@@ -61,7 +61,7 @@ class SedeServiceTest {
 
     @Test
     void guardarSedeInvalidaDebeLanzarExcepcion() {
-        Sede sede = new Sede(); // Sin nombre o dirección
+        Sede sede = new Sede();
         assertThrows(IllegalArgumentException.class, () -> sedeService.guardar(sede));
     }
 }

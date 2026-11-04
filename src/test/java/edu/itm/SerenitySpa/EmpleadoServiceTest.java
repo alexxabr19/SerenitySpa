@@ -65,7 +65,7 @@ class EmpleadoServiceTest {
 
     @Test
     void guardarEmpleadoInvalidoDebeLanzarExcepcion() {
-        Empleado empleado = new Empleado(); // Sin nombre ni correo
+        Empleado empleado = new Empleado();
         assertThrows(IllegalArgumentException.class, () -> empleadoService.guardar(empleado));
     }
 }

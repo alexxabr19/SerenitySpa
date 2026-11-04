@@ -63,7 +63,7 @@ class ClienteServiceTest {
 
     @Test
     void guardarClienteInvalidoDebeLanzarExcepcion() {
-        Cliente cliente = new Cliente(); // Sin datos obligatorios
+        Cliente cliente = new Cliente();
         assertThrows(IllegalArgumentException.class, () -> clienteService.guardarCliente(cliente));
     }
 }
