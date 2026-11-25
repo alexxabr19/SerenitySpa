@@ -19,7 +19,7 @@ public class Factura {
     @Column(name = "idFactura")
     private int idFactura;
     private LocalDate fecha;
-    private double montoTotal;
+    private Double montoTotal;
     private String metodoPago;
     private String estado;
     @OneToOne

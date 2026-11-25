@@ -71,6 +71,9 @@ public class EmpleadoService implements IEmpleadoService {
                 obtenerServicios(empleado.getServiciosHabilitados())
         );
 
+        if (empleado.getIdEmpleado() != null && empleado.getIdEmpleado() == 0) {
+            empleado.setIdEmpleado(null);
+        }
         return empleadoRepository.save(existente);
     }
 

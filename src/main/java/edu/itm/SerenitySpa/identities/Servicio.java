@@ -18,8 +18,8 @@ public class Servicio {
     private int idServicio;
     private String nombre;
     private String descripcion;
-    private int duracion;
-    private double precio;
+    private Integer duracion;
+    private Double precio;
 
     @OneToMany(mappedBy = "servicio")
     @JsonIgnore
